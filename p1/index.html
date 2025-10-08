@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -24,15 +23,8 @@
       --shadow: 0 10px 30px rgba(0, 0, 0, .15), 0 2px 10px rgba(0, 0, 0, .1);
     }
 
-    * {
-      box-sizing: border-box
-    }
-
-    html,
-    body {
-      height: 100%
-    }
-
+    * { box-sizing: border-box }
+    html, body { height: 100% }
     body {
       margin: 0;
       font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
@@ -82,9 +74,7 @@
       font-size: clamp(14px, 1.6vw, 18px);
     }
 
-    .timer .clock {
-      font-variant-numeric: tabular-nums
-    }
+    .timer .clock { font-variant-numeric: tabular-nums }
 
     .cta-row {
       display: grid;
@@ -113,33 +103,12 @@
       transition: transform .08s ease, box-shadow .2s ease, opacity .2s ease;
     }
 
-    .btn:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 10px 26px rgba(40, 167, 69, .42)
-    }
+    .btn:hover { transform: translateY(-1px); box-shadow: 0 10px 26px rgba(40, 167, 69, .42) }
+    .btn:focus-visible { outline: 3px solid var(--focus); outline-offset: 3px; }
 
-    .btn:focus-visible {
-      outline: 3px solid var(--focus);
-      outline-offset: 3px;
-    }
-
-    @media (min-width: 640px) {
-      .btn {
-        width: 80%;
-      }
-    }
-
-    @media (min-width: 960px) {
-      .btn {
-        width: 60%;
-      }
-    }
-
-    @media (max-width: 639px) {
-      .card {
-        margin-bottom: 40px;
-      }
-    }
+    @media (min-width: 640px) { .btn { width: 80%; } }
+    @media (min-width: 960px) { .btn { width: 60%; } }
+    @media (max-width: 639px) { .card { margin-bottom: 40px; } }
 
     footer {
       width: min(1100px, 92vw);
@@ -158,17 +127,10 @@
       border-radius: 14px;
     }
 
-    footer p {
-      margin: 0 0 10px
-    }
+    footer p { margin: 0 0 10px }
+    footer p:last-child { margin: 0 }
 
-    footer p:last-child {
-      margin: 0
-    }
-
-    .footer-links {
-      margin-bottom: 12px;
-    }
+    .footer-links { margin-bottom: 12px; }
 
     .footer-links a {
       display: inline-block;
@@ -182,9 +144,7 @@
       transition: background .2s;
     }
 
-    .footer-links a:hover {
-      background: rgba(0, 0, 0, .15)
-    }
+    .footer-links a:hover { background: rgba(0, 0, 0, .15) }
   </style>
 </head>
 
@@ -200,7 +160,7 @@
       </p>
 
       <div class="cta-row">
-        <button class="btn" data-href="../ab" id="btnStart" aria-label="Comenzar ahora">
+        <button class="btn" data-href="../f" id="btnStart" aria-label="Comenzar ahora">
           COMENZAR AHORA
         </button>
       </div>
@@ -221,6 +181,7 @@
   </footer>
 
   <script>
+    // Timer ilustrativo: NÃO bloqueia o clique após zerar
     (function () {
       const secsEl = document.getElementById('seconds');
       const timerEl = document.getElementById('timer');
@@ -231,20 +192,19 @@
         remaining = Math.max(remaining - 1, 0);
         secsEl.textContent = remaining.toString();
         if (remaining === 0) {
-          btn.setAttribute('disabled', 'true');
-          timerEl.innerHTML = "⛔ <strong>Página fuera de línea</strong> — actualiza para intentarlo de nuevo.";
+          // Apenas atualiza a mensagem; não desabilita o botão
+          timerEl.innerHTML = "⏰ <strong>El tiempo terminó</strong> — aún puedes continuar.";
           clearInterval(int);
         }
       };
       const int = setInterval(tick, 1000);
 
       btn.addEventListener('click', () => {
-        if (remaining === 0) return;
+        // Permite clicar SEMPRE, independente do timer
         const href = btn.getAttribute('data-href') || '#';
         window.location.href = href;
       });
     })();
   </script>
 </body>
-
 </html>
